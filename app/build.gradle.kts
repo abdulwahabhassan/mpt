@@ -1,69 +1,105 @@
+import com.android.build.gradle.api.ApplicationVariant
+import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+import com.moniepoint.buildlogic.BuildType
+import java.io.ByteArrayOutputStream
+import java.io.FileInputStream
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Locale
+import java.util.Properties
+
+
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.moniepoint.convention.application")
+    alias(libs.plugins.org.jetbrains.kotlin.android)
 }
+
+val keystorePropertiesFile: File? = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+keystoreProperties.load(keystorePropertiesFile?.let { FileInputStream(it) })
 
 android {
     namespace = "com.devhassan.moniepoint"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.devhassan.moniepoint"
-        minSdk = 24
-        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
+    signingConfigs {
+        create("app-signing-config") {
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["storePassword"] as String
+        }
+    }
     buildTypes {
+        debug {
+            applicationIdSuffix = BuildType.DEBUG.applicationIdSuffix
+        }
         release {
             isMinifyEnabled = false
+            applicationIdSuffix = BuildType.RELEASE.applicationIdSuffix
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
+            signingConfig = signingConfigs.getByName("app-signing-config")
         }
+
+        android.applicationVariants.all(OutputApkFileNamingAction())
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+class OutputApkFileNamingAction : Action<ApplicationVariant> {
+    override fun execute(variant: ApplicationVariant) {
+        val fileName = createFileName(variant)
+        variant.outputs.all(VariantOutputAction(fileName))
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+
+    private fun createFileName(variant: ApplicationVariant): String {
+        return "moniepoint" +
+                "-${variant.name}" +
+                "-v${variant.versionName}" +
+                "-${getBranchName()}" +
+                "-${LocalDate.now()}.apk"
     }
-    buildFeatures {
-        compose = true
+
+
+    private fun getDateTimeFormat(): String {
+        val simpleDateFormat = SimpleDateFormat("dd-MMM-yy")
+        return simpleDateFormat.format(LocalDate.now())
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+
+    class VariantOutputAction(
+        private val fileName: String
+    ) : Action<BaseVariantOutput> {
+        override fun execute(output: BaseVariantOutput) {
+            if (output is BaseVariantOutputImpl) {
+                output.outputFileName = fileName
+            }
         }
     }
 }
 
-dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+fun getBranchName(): String? {
+    return try {
+        println("Task Getting Branch Name..")
+        val stdout = ByteArrayOutputStream()
+        project.exec {
+            commandLine("git", "rev-parse", "--abbrev-ref", "HEAD")
+            standardOutput = stdout
+        }
+        val branchName = stdout.toString().replace("/", "-").replace("\n", "")
+            .lowercase(Locale.getDefault())
+        println("Git Current Branch = $branchName")
+        branchName
+    } catch (e: Exception) {
+        println("Exception = ${e.message}")
+        null
+    }
 }
