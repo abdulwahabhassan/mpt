@@ -1,5 +1,6 @@
 package com.moniepoint.feature.home.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -61,6 +62,10 @@ internal fun HomeScreen(
     onTapBackIcon: () -> Unit,
     onUiEvent: (HomeScreenEvent) -> Unit,
 ) {
+    BackHandler {
+        onTapBackIcon()
+    }
+
     var uiVisibility by remember { mutableStateOf(false) }
     LazyColumn(
         modifier = Modifier

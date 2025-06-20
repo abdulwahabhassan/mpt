@@ -98,10 +98,6 @@ internal fun MoniePointApp(
         }
     ) { padding ->
 
-        BackHandler {
-            handleBackButton()
-        }
-
         AnimatedVisibility(
             uiVisibility && !isSearchActivated,
             enter = slideInVertically(
