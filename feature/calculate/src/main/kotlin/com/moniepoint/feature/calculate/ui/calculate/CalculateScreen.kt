@@ -121,6 +121,7 @@ internal fun CalculateScreen(
                                     },
                                     placeholderText = "Sender location",
                                     leadingIcon = MoniePointIcons.Outbox,
+                                    horizontalPadding = 0.dp
                                 )
                             }
                             AnimatedVisibility(
@@ -135,7 +136,7 @@ internal fun CalculateScreen(
                                     },
                                     placeholderText = "Receiver location",
                                     leadingIcon = MoniePointIcons.MoveToInbox,
-                                    horizontalPadding = 2.dp
+                                    horizontalPadding = 0.dp
                                 )
                             }
                             AnimatedVisibility(
@@ -150,7 +151,7 @@ internal fun CalculateScreen(
                                     },
                                     placeholderText = "Approx weight",
                                     leadingIcon = MoniePointIcons.Scale,
-                                    horizontalPadding = 2.dp
+                                    horizontalPadding = 0.dp
                                 )
                             }
                         }
