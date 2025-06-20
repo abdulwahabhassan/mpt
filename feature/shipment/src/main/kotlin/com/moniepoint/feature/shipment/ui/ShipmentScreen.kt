@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -72,6 +73,7 @@ internal fun ShipmentScreen(
             stickyHeader {
                 LazyRow(
                     modifier = Modifier
+                        .height(42.dp)
                         .fillMaxWidth()
                         .background(color = MaterialTheme.colorScheme.primary),
                     contentPadding = PaddingValues(horizontal = 8.dp)
@@ -163,7 +165,8 @@ private fun ShipmentScreenPreview() {
     MoniePointTheme {
         ShipmentScreen(
             screenState = ShipmentScreenState(
-                _shipments = ShipmentEntity.shipments
+                _shipments = ShipmentEntity.shipments,
+                filterVisibility = true
             ),
             onTapBackIcon = {},
             onUiEvent = {}

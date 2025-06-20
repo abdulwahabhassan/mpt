@@ -60,9 +60,6 @@ internal fun MoniePointApp(
             }
         }
     }
-    BackHandler {
-        handleBackButton()
-    }
 
     Scaffold(
         topBar = {
@@ -100,12 +97,17 @@ internal fun MoniePointApp(
             }
         }
     ) { padding ->
+
+        BackHandler {
+            handleBackButton()
+        }
+
         AnimatedVisibility(
             uiVisibility && !isSearchActivated,
             enter = slideInVertically(
                 initialOffsetY = { it },
             ) + fadeIn(),
-//            exit = fadeOut()
+            exit = fadeOut()
         ) {
             AppNavGraph(
                 navState.navHostController,

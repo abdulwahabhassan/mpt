@@ -1,7 +1,6 @@
 package com.devhassan.moniepoint.app.ui
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
@@ -14,8 +13,6 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,7 +28,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -224,10 +220,17 @@ fun MoniePointCustomAppBar(
                         )
 
                     }
-                    Spacer(
-                        modifier = Modifier
-                            .height(24.dp)
-                    )
+//                    Spacer(modifier = Modifier.height(24.dp))
+////                    AnimatedVisibility(
+////                        visible = true,
+////                        enter = expandVertically(),
+////                        exit = shrinkVertically()
+////                    ) {
+////                        Spacer(
+////                            modifier = Modifier
+////                                .height(24.dp)
+////                        )
+////                    }
                 }
 
                 BottomNavDestination.Calculate,
@@ -266,7 +269,18 @@ fun MoniePointCustomAppBar(
                     }
                 }
             }
+            AnimatedVisibility(
+                visible = bottomNavDestination == BottomNavDestination.Home,
+                enter = expandVertically(expandFrom = Alignment.Top),
+                exit = shrinkVertically(shrinkTowards = Alignment.Top) + fadeOut()
+            ) {
+                Spacer(
+                    modifier = Modifier
+                        .height(24.dp)
+                )
+            }
         }
+
     }
 }
 
@@ -276,7 +290,7 @@ fun MoniePointCustomAppBar(
 fun MoniePointCustomAppBarPreview() {
     MoniePointTheme {
         MoniePointCustomAppBar(
-            BottomNavDestination.Calculate,
+            BottomNavDestination.Home,
             onTapBackIcon = { },
             title = "",
             backgroundColor = MaterialTheme.colorScheme.primary,

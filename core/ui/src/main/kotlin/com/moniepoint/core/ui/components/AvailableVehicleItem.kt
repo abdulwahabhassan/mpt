@@ -1,10 +1,8 @@
 package com.moniepoint.core.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,11 +21,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.moniepoint.core.AnimationConstant
-import com.moniepoint.core.designsystem.theme.MoniePointTheme
-import com.moniepoint.core.model.enums.Vehicle
 import com.moniepoint.core.designsystem.R
 import com.moniepoint.core.designsystem.theme.DecorativeColor
+import com.moniepoint.core.designsystem.theme.MoniePointTheme
+import com.moniepoint.core.model.enums.Vehicle
 
 @Composable
 fun AvailableVehicleItem(
@@ -48,9 +45,7 @@ fun AvailableVehicleItem(
                     enter = slideInHorizontally(
                         initialOffsetX = { it },
                     ),
-                    exit = slideOutHorizontally(
-                        targetOffsetX = { it },
-                    )
+                    exit = fadeOut()
                 ) {
                     Image(
                         modifier = Modifier
