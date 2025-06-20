@@ -16,6 +16,7 @@ internal data class MainActivityState(
         get() = isLoading.not()
     val shipments: List<ShipmentEntity>
         get() = _shipments.filter {
+            it.title.contains(searchQuery, ignoreCase = true) ||
             it.shipmentId.contains(searchQuery, ignoreCase = true) || it.fee.toString()
                 .contains(
                     searchQuery,
