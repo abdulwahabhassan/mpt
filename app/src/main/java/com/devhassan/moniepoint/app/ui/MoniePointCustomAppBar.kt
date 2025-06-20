@@ -220,17 +220,6 @@ fun MoniePointCustomAppBar(
                         )
 
                     }
-//                    Spacer(modifier = Modifier.height(24.dp))
-////                    AnimatedVisibility(
-////                        visible = true,
-////                        enter = expandVertically(),
-////                        exit = shrinkVertically()
-////                    ) {
-////                        Spacer(
-////                            modifier = Modifier
-////                                .height(24.dp)
-////                        )
-////                    }
                 }
 
                 BottomNavDestination.Calculate,

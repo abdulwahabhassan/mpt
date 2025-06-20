@@ -17,7 +17,6 @@ class DefaultShipmentRepository @Inject constructor(
     private val json: Json,
     private val apiService: MoniePointService,
     private val dataStore: UserPreferencesDataStore,
-    // ..DAOs for local data
 ) : ShipmentRepository {
     override fun getShipments(): List<ShipmentEntity> {
         TODO("Not yet implemented")

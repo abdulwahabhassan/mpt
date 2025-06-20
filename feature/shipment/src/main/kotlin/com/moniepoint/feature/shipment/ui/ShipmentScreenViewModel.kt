@@ -28,7 +28,6 @@ internal class ShipmentScreenViewModel @Inject constructor() :
                     )
                 }
                 viewModelScope.launch {
-//                    delay(300)
                     setUiState { copy(itemVisibility = true) }
                 }
             }

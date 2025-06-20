@@ -238,7 +238,6 @@ internal fun CalculateScreen(
                     }
                 }
             }
-//            item { Spacer(modifier = Modifier.height(40.dp)) }
             item {
                 Spacer(modifier = Modifier.height(40.dp))
                 AnimatedVisibility(
