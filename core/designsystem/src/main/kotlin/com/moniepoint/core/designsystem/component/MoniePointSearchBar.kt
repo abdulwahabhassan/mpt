@@ -46,7 +46,7 @@ fun MoniePointSearchBar(
     searchPlaceholder: String,
     trailingIcon: (@Composable () -> Unit)? = null,
     isEnabled: Boolean = true,
-    contentColor: Color = MaterialTheme.colorScheme.primary,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
     placeholderTextColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
     onTap: () -> Unit,
 ) {
