@@ -21,7 +21,7 @@ keystoreProperties.load(keystorePropertiesFile?.let { FileInputStream(it) })
 
 android {
     namespace = "com.devhassan.moniepoint"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.devhassan.moniepoint"

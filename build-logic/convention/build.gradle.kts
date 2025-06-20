@@ -23,17 +23,17 @@ tasks.withType<KotlinCompile>().configureEach {
 
 gradlePlugin {
     plugins {
-        register("moniepointApplicationConvention") {
+        register("moniePointApplicationConvention") {
             id = "com.moniepoint.convention.application"
-            implementationClass = "MoniepointApplicationConventionPlugin"
+            implementationClass = "MoniePointApplicationConventionPlugin"
         }
-        register("moniepointCoreConvention") {
+        register("moniePointCoreConvention") {
             id = "com.moniepoint.convention.core"
-            implementationClass = "MoniepointCoreConventionPlugin"
+            implementationClass = "MoniePointCoreConventionPlugin"
         }
-        register("moniepointFeatureConvention") {
+        register("moniePointFeatureConvention") {
             id = "com.moniepoint.convention.feature"
-            implementationClass = "MoniepointFeatureConventionPlugin"
+            implementationClass = "MoniePointFeatureConventionPlugin"
         }
     }
 }

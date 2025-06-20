@@ -24,6 +24,7 @@ rootProject.name = "moniepoint"
 
 
 include(":app")
+
 include(":core:data")
 include(":core:designsystem")
 include(":core:domain")
@@ -31,8 +32,10 @@ include(":core:model")
 include(":core:network")
 include(":core:database")
 include(":core:ui")
+
 include(":feature:home")
 include(":feature:calculate")
 include(":feature:shipment")
 include(":feature:profile")
+include(":feature:estimate")
 
