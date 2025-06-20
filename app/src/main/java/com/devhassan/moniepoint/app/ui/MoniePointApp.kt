@@ -1,5 +1,6 @@
 package com.devhassan.moniepoint.app.ui
 
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -87,7 +88,7 @@ internal fun MoniePointApp(
         },
         bottomBar = {
             AnimatedVisibility(
-                uiVisibility && bottomNavDestination == BottomNavDestination.Home,
+                uiVisibility && bottomNavDestination == BottomNavDestination.Home && !isSearchActivated,
                 enter = slideInVertically(
                     initialOffsetY = { it },
                 ) + fadeIn(),
@@ -108,7 +109,9 @@ internal fun MoniePointApp(
             AppNavGraph(
                 navState.navHostController,
                 modifier = Modifier.padding(padding),
-                onExitApp
+                onTapBackIcon = {
+                    handleBackButton()
+                }
             )
         }
 

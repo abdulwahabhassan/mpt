@@ -15,26 +15,8 @@ internal fun NavHostController.navigateToHomeNavGraph(
     this.navigate(homeNavGraphRoute, navOptions)
 }
 
-internal fun NavHostController.navigateToCalculateNavGraph(
-    navOptions: NavOptions? = null,
-) {
-    this.navigate(calculateNavGraphRoute, navOptions)
-}
-
 internal fun NavHostController.navigateToEstimateNavGraph(
     navOptions: NavOptions? = null,
 ) {
     this.navigate(estimateNavGraphRoute, navOptions)
-}
-
-internal fun NavHostController.navigateToShipmentNavGraph(
-    navOptions: NavOptions? = null,
-) {
-    this.navigate(shipmentNavGraphRoute, navOptions)
-}
-
-internal fun NavHostController.navigateToProfileNavGraph(
-    navOptions: NavOptions? = null
-) {
-    this.navigate(profileNavGraphRoute, navOptions)
 }

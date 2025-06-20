@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.navOptions
 import com.devhassan.moniepoint.app.bottomnav.BottomNavDestination
 import com.moniepoint.feature.calculate.navigation.calculateNavGraph
 import com.moniepoint.feature.estimate.navigation.estimateNavGraph
@@ -39,7 +40,9 @@ internal fun AppNavHost(
             onTapBackIcon = onTapBackIcon,
         )
         calculateNavGraph(
-            onTapBackIcon = { navHostController.navigateToHomeNavGraph() },
+            onTapBackIcon = { navHostController.navigateToHomeNavGraph(navOptions {
+                this.launchSingleTop = true
+            }) },
             onGoToEstimateRoute = {
                 navHostController.navigateToEstimateNavGraph()
             }
